@@ -1,0 +1,13 @@
+select distinct date,
+case when (l<>0)and((f<=l and 2>=f and 2<=l)or((f>l) and (2>=f or 2<=l))) then 5 else 4 end, 
+case when (l<>0)and((f<=l and 3>=f and 3<=l)or((f>l) and (3>=f or 3<=l))) then 5 else 4 end,
+case when (l<>0)and((f<=l and 4>=f and 4<=l)or((f>l) and (4>=f or 4<=l))) then 5 else 4 end,
+case when (l<>0)and((f<=l and 5>=f and 5<=l)or((f>l) and (5>=f or 5<=l))) then 5 else 4 end,
+case when (l<>0)and((f<=l and 6>=f and 6<=l)or((f>l) and (6>=f or 6<=l))) then 5 else 4 end, 
+case when (l<>0)and((f<=l and 7>=f and 7<=l)or((f>l) and (7>=f or 7<=l))) then 5 else 4 end,
+case when (l<>0)and((f<=l and 1>=f and 1<=l)or((f>l) and (1>=f or 1<=l))) then 5 else 4 end
+from (select convert(varchar(7), date, 127) date, 
+datepart(weekday, dateadd(day, - datepart(day, date) + 1, date)) f,
+case when datepart(day, eomonth(date))=28 then 0 else datepart(weekday, eomonth(date)) end l
+from battles)a
+

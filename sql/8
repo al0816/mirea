@@ -1,0 +1,2 @@
+select name, cast(date as date), cast(dateadd(day, datediff(day, 4-7*1000, eomonth(date)) / 7 * 7, 4-7*1000) as date) from battles
+

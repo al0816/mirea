@@ -1,0 +1,22 @@
+select distinct maker,
+
+case when maker in (select maker from product where type='pc') then
+'yes('+convert(varchar, 
+(select count(*) from 
+(select distinct maker makerrr, product.model from product join pc on product.type='pc' and product.model=pc.model)c where c.makerrr=maker))+')'
+else 'no' end,
+
+case when maker in (select maker from product where type='laptop') then
+'yes('+convert(varchar, 
+(select count(*) from 
+(select distinct maker makerrr, product.model from product join laptop on product.type='laptop' and product.model=laptop.model)c where c.makerrr=maker))+')'
+else 'no' end,
+
+case when maker in (select maker from product where type='printer') then
+'yes('+convert(varchar, 
+(select count(*) from 
+(select distinct maker makerrr, product.model from product join printer on product.type='printer' and product.model=printer.model)c where c.makerrr=maker))+')'
+else 'no' end
+
+from product
+

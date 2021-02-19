@@ -1,0 +1,24 @@
+select ship, 
+
+case when len(ship)=0 then ' '+replicate('*', datalength(ship)-2)+' ' else
+replace(ship, 
+ substring(
+  ship,
+  charindex(' ', ship),
+  datalength(ship)-charindex(' ', reverse(ship))-charindex(' ', ship)+2
+ ),' '+
+ replicate(
+   '*', 
+   datalength(
+    substring(
+     ship,
+     charindex(' ', ship),
+     datalength(ship)-charindex(' ', reverse(ship))-charindex(' ', ship)
+    )
+   )
+  )+' '
+)end
+
+
+from outcomes where ship like '% % %'
+

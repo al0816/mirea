@@ -1,0 +1,11 @@
+select dense_rank() OVER(ORDER BY eomonth(date)) no, startdate, enddate, code, point, date, sum from (
+select distinct
+dateadd(d,1,eomonth(dateadd(m,-1,date))) startDate,
+eomonth(date) endDate,
+code, point, date, sum(inc) sum from income where date<(select dateadd(d,1,eomonth(dateadd(m,-3,max(date)))) from income) group by date, point, code
+union
+select distinct 
+dateadd(d,1,eomonth(dateadd(m,-1,date))) startDate,
+eomonth(date) endDate,
+code, point, date, -sum(out) from outcome where date<(select dateadd(d,1,eomonth(dateadd(m,-3,max(date)))) from outcome) group by date, point, code)z
+

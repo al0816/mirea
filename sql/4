@@ -1,0 +1,12 @@
+select model,
+0+(datalength(model)-datalength(replace(model,'1','')))+
+2*(datalength(model)-datalength(replace(model,'2','')))+
+3*(datalength(model)-datalength(replace(model,'3','')))+
+4*(datalength(model)-datalength(replace(model,'4','')))+
+5*(datalength(model)-datalength(replace(model,'5','')))+
+6*(datalength(model)-datalength(replace(model,'6','')))+
+7*(datalength(model)-datalength(replace(model,'7','')))+
+8*(datalength(model)-datalength(replace(model,'8','')))+
+9*(datalength(model)-datalength(replace(model,'9','')))
+from product
+

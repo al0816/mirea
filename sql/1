@@ -1,0 +1,19 @@
+select distinct model from pc join (select distinct *
+from
+(select model dmodel, screen dscreen, hd dhd from laptop)z
+join
+(select model omodel, screen oscreen, ram oram from laptop)x
+on oscreen+3=dscreen
+join
+(select model d0model, maker dmaker from product)n
+on dmodel=d0model
+join
+(select model p2model, price p2price, type p2type, color p2color from printer)v
+on datalength(p2model)>2 and datalength(omodel)>2 and substring(p2model,3,1)<>substring(omodel,3,1) and right(p2model, datalength(p2model)-3)=right(omodel, datalength(omodel)-3) and left(p2model,2)=left(omodel,2)
+join
+(select model p1model, price p1price, type p1type, color p1color from printer)c
+on p1type<>p2type and p1color=p2color
+join
+(select distinct pc.model cmodel, speed cspeed, maker pcmaker, price cprice from pc join product on product.model=pc.model)m
+on cprice=p1price*4 and pcmaker=dmaker)z on z.p2price=pc.price and pc.speed=cspeed and pc.ram=oram and dhd=hd
+
